@@ -5,7 +5,8 @@ use std::task::{Context, Poll};
 use futures_util::{ready, TryFuture};
 use pin_project::pin_project;
 
-use super::{Filter, FilterBase, Func, Internal};
+use super::{Filter, FilterBase, Internal};
+use crate::generic::Func;
 use crate::reject::CombineRejection;
 
 #[derive(Clone, Copy, Debug)]

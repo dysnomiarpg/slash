@@ -443,9 +443,48 @@ fn _assert_object_safe() {
 
 // ===== FilterFn =====
 
+pub(crate) fn filter_fn<F, U>(func: F) -> FilterFn<F>
+where
+    F: Fn(&mut Route) -> U,
+    U: TryFuture,
+    U::Ok: Tuple,
+    U::Error: IsReject,
+{
+    FilterFn { func }
+}
+
+pub(crate) fn filter_fn_one<F, U>(
+    func: F,
+) -> impl Filter<Extract = (U::Ok,), Error = U::Error> + Copy
+where
+    F: Fn(&mut Route) -> U + Copy,
+    U: TryFuture + Send + 'static,
+    U::Ok: Send,
+    U::Error: IsReject,
+{
+    filter_fn(move |route| func(route).map_ok(|item| (item,)))
+}
+
 #[derive(Copy, Clone)]
 #[allow(missing_debug_implementations)]
 pub(crate) struct FilterFn<F> {
     // TODO: could include a `debug_str: &'static str` to be used in Debug impl
     func: F,
+}
+
+impl<F, U> FilterBase for FilterFn<F>
+where
+    F: Fn(&mut Route) -> U,
+    U: TryFuture + Send + 'static,
+    U::Ok: Tuple + Send,
+    U::Error: IsReject,
+{
+    type Extract = U::Ok;
+    type Error = U::Error;
+    type Future = future::IntoFuture<U>;
+
+    #[inline]
+    fn filter(&self, _: Internal) -> Self::Future {
+        route::with(|route| (self.func)(route)).into_future()
+    }
 }

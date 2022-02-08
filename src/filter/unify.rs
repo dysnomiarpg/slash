@@ -5,7 +5,9 @@ use std::task::{Context, Poll};
 use futures_util::{ready, TryFuture};
 use pin_project::pin_project;
 
-use super::{Either, Filter, FilterBase, Internal, Tuple};
+use crate::generic::Either;
+
+use super::{Filter, FilterBase, Internal, Tuple};
 
 #[derive(Clone, Copy, Debug)]
 pub struct Unify<F> {

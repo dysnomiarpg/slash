@@ -1,13 +1,17 @@
-use std::future::Future;
-use std::pin::Pin;
-use std::task::{Context, Poll};
+use std::{
+    pin::Pin,
+    task::{Context, Poll},
+};
 
-use futures_util::ready;
+use futures_util::{ready, Future};
 use pin_project::pin_project;
 
-use super::{Combine, Filter, FilterBase, Internal, Tuple};
-use crate::generic::CombinedTuples;
-use crate::reject::CombineRejection;
+use crate::{
+    generic::{Combine, CombinedTuples, Tuple},
+    reject::CombineRejection,
+};
+
+use super::{Filter, FilterBase, Internal};
 
 #[derive(Clone, Copy, Debug)]
 pub struct And<T, U> {

@@ -1,47 +1,31 @@
-# slashlib
+# slash
 
-Slashlib is a Discord interaction library for Rust.
+Slash is a Discord interaction library for Rust.
 
 > 🚧 **Slashlib is currently in development and is not suited for production.** Please do not file issues or report bugs related to the production environment. 🚧
 
 ## Examples
 
-### Builder syntax
-
 ```rs
-#[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
-	// create the "ping" command
-	let ping = ChatCommandBuilder::new()
-		.set_name("ping")
-		.set_description("Replies with 'pong!'")
-		.on_execute(|ctx| async {
-			ctx.reply("Pong!");
-			Ok(())
-		})
-		.build();
-	// create the web client and start listening
-	let client = slashlib::web::Client::new()
-		.add_command(ping)
-		.listen()
-		.await?
-}
-```
+	let ping = 
+		slash::command("ping")
+			.description("Ping the bot")
+			.map(|ctx: &Context| async {
+				ctx.reply("Pong!").await?
+			});
+	
+	let echo = 
+		slash::command("echo")
+			.description("Echo a message")
+			.and(slash::arg("message"))
+			map(|ctx: &Context, message: String| {
+				ctx.reply(&message).await?
+			});
 
-### Macro syntax
+	let cmds = ping.or(echo);
 
-```rs
-#[command]
-async fn ping(ctx: &Context) {
-	ctx.reply("Pong!").await;
-}
-
-async fn main() -> Result<(), Box<dyn Error>> {
-	// create the web client and start listening
-	let client = slashlib::web::Client::new()
-		.add_command(ping)
-		.listen()
-		.await?
+	slash::serve(cmds).await
 }
 ```
 
