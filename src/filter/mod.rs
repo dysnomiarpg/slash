@@ -15,7 +15,7 @@ use std::future::Future;
 
 use futures_util::{future, TryFuture, TryFutureExt};
 
-use crate::context::{Context, self};
+use crate::context::{self, Context};
 pub(crate) use crate::generic::{Combine, Either, Func, Tuple};
 use crate::reject::{CombineRejection, IsReject, Rejection};
 

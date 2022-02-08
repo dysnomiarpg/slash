@@ -5,11 +5,12 @@ use std::cell::RefCell;
 
 use scoped_tls::scoped_thread_local;
 
-
 scoped_thread_local!(
-	/// Thread-scoped context value.
-	static CONTEXT: RefCell<Context>
+    /// Thread-scoped context value.
+    static CONTEXT: RefCell<Context>
 );
+
+/// The primary context of a command.
 pub struct Context {}
 
 pub(crate) fn set<F, U>(r: &RefCell<Context>, func: F) -> U
