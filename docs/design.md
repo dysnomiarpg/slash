@@ -2,7 +2,7 @@
 
 ## Filter System
 
-Similar to [`warp`](https://github.com/seanmonstar/warp)'s filter system, slashlib features a filter system to extract data, and run pre-conditions on commands.
+Similar to [`warp`](https://github.com/seanmonstar/warp)'s filter system, Slash features a filter system to extract data, and run pre-conditions on commands.
 
 ```rs
 let my_data = vec![];

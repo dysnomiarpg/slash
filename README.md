@@ -2,7 +2,7 @@
 
 Slash is a Discord interaction library for Rust.
 
-> 🚧 **Slashlib is currently in development and is not suited for production.** Please do not file issues or report bugs related to the production environment. 🚧
+> 🚧 **Slash is currently in development and is not suited for production.** Please do not file issues or report bugs related to the production environment. 🚧
 
 ## Examples
 
@@ -31,7 +31,7 @@ async fn main() -> Result<(), Box<dyn Error>> {
 
 ## License
 
-You are able to use slashlib under two different licenses:
+You are able to use Slash under two different licenses:
 
 -   Free license
 -   Commercial license
@@ -39,7 +39,7 @@ You are able to use slashlib under two different licenses:
 The free license is a modified version of the [MIT license](https://opensource.org/licenses/MIT), with the conditions that:
 
 -   you are an individual, or a non-profit or not-for-profit organisation
--   generate no revenue through the usage of slashlib
+-   generate no revenue through the usage of Slash
 -   your bot is in less than 1000 guilds
 
 A commercial license is also available for larger organisations, or bots that generate revenue.

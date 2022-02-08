@@ -1,6 +1,6 @@
-# Slashlib License
+# Slash License
 
-Depending on the type of your legal entity, you are granted permission to use Slashlib for your project. Individuals and small companies are allowed to use Slashlib to create bots for free, while a company license is required for for-profit organisations over a certain size.
+Depending on the type of your legal entity, you are granted permission to use Slash for your project. Individuals and small companies are allowed to use Slash to create bots for free, while a company license is required for for-profit organisations over a certain size.
 
 - [Free license](#free-license)
 - [Commercial license](#commercial-license)
@@ -11,7 +11,7 @@ Copyright © 2022 [Kaylen Dart](https://skzr.dev)
 
 ### Eligibility
 
-You are eligible to use Slashlib for free if you are:
+You are eligible to use Slash for free if you are:
 
 - an individual
 - a non-profit or not-for-profit organisation
@@ -24,7 +24,7 @@ Given all of the following conditions are met:
 
 All entities are exempt to the above conditions if:
 
-- you are evaluating whether Slashlib is a good fit for your project
+- you are evaluating whether Slash is a good fit for your project
 
 ### Allowed use cases
 
@@ -40,6 +40,6 @@ The software is provided "as is", without warranty of any kind, express or impli
 
 ## Commercial License
 
-You are required to obtain a commercial license to use Slashlib if you are not listed in the above group of entities eligible for a free license.
+You are required to obtain a commercial license to use Slash if you are not listed in the above group of entities eligible for a free license.
 
-The commercial license is currently unavailable, and will be released once Slashlib is ready for production.
+The commercial license is currently unavailable, and will be released once Slash is ready for production.
