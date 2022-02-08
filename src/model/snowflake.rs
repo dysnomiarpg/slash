@@ -1,3 +1,5 @@
+use std::fmt::Display;
+
 use chrono::{DateTime, NaiveDateTime, Utc};
 use serde::{
     de::{Deserializer, Visitor},
@@ -8,6 +10,12 @@ use serde::{
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub struct Snowflake {
     inner: u64,
+}
+
+impl Display for Snowflake {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "{}", self.inner)
+    }
 }
 
 impl From<u64> for Snowflake {
