@@ -1,21 +1,23 @@
-use std::{convert::Infallible, pin::Pin, task::Poll};
+use std::{pin::Pin, task::Poll};
 
 use futures_util::Future;
 
 use crate::{
+    context::Context,
     filter::{FilterBase, Internal},
-    Filter,
+    generic::One,
+    reject::Rejection,
 };
 
 /// Returns a new command object.
-pub fn command(name: &str) -> impl Filter<Extract = (), Error = Infallible> {
+pub fn command(name: &str) -> Command {
     Command {
         name: name.to_string(),
         description: "".to_string(),
     }
 }
 
-pub(crate) struct Command {
+pub struct Command {
     name: String,
     description: String,
 }
@@ -34,8 +36,8 @@ impl Command {
 }
 
 impl FilterBase for Command {
-    type Extract = ();
-    type Error = Infallible;
+    type Extract = One<Context>;
+    type Error = Rejection;
     type Future = CommandFut;
 
     fn filter(&self, _: Internal) -> Self::Future {
@@ -43,12 +45,12 @@ impl FilterBase for Command {
     }
 }
 
-pub(crate) struct CommandFut {}
+pub struct CommandFut {}
 
 impl Future for CommandFut {
-    type Output = Result<(), Infallible>;
+    type Output = Result<One<Context>, Rejection>;
 
     fn poll(self: Pin<&mut Self>, _: &mut std::task::Context<'_>) -> std::task::Poll<Self::Output> {
-        Poll::Ready(Ok(()))
+        Poll::Ready(Ok((Context::new(),)))
     }
 }

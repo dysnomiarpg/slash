@@ -13,6 +13,16 @@ scoped_thread_local!(
 /// The primary context of a command.
 pub struct Context {}
 
+impl Context {
+    pub fn new() -> Self {
+        Self {}
+    }
+    /// Reply to the interaction with the given message.
+    pub fn reply<S: AsRef<str>>(&self, content: S) {
+        todo!()
+    }
+}
+
 pub(crate) fn set<F, U>(r: &RefCell<Context>, func: F) -> U
 where
     F: FnOnce() -> U,
