@@ -13,8 +13,9 @@ mod wrap;
 
 use std::future::Future;
 
-use futures_util::{future, TryFuture};
+use futures_util::{future, TryFuture, TryFutureExt};
 
+use crate::context::{Context, self};
 pub(crate) use crate::generic::{Combine, Either, Func, Tuple};
 use crate::reject::{CombineRejection, IsReject, Rejection};
 
@@ -445,7 +446,7 @@ fn _assert_object_safe() {
 
 pub(crate) fn filter_fn<F, U>(func: F) -> FilterFn<F>
 where
-    F: Fn(&mut Route) -> U,
+    F: Fn(&mut Context) -> U,
     U: TryFuture,
     U::Ok: Tuple,
     U::Error: IsReject,
@@ -457,12 +458,12 @@ pub(crate) fn filter_fn_one<F, U>(
     func: F,
 ) -> impl Filter<Extract = (U::Ok,), Error = U::Error> + Copy
 where
-    F: Fn(&mut Route) -> U + Copy,
+    F: Fn(&mut Context) -> U + Copy,
     U: TryFuture + Send + 'static,
     U::Ok: Send,
     U::Error: IsReject,
 {
-    filter_fn(move |route| func(route).map_ok(|item| (item,)))
+    filter_fn(move |context| func(context).map_ok(|item| (item,)))
 }
 
 #[derive(Copy, Clone)]
@@ -474,7 +475,7 @@ pub(crate) struct FilterFn<F> {
 
 impl<F, U> FilterBase for FilterFn<F>
 where
-    F: Fn(&mut Route) -> U,
+    F: Fn(&mut Context) -> U,
     U: TryFuture + Send + 'static,
     U::Ok: Tuple + Send,
     U::Error: IsReject,
@@ -485,6 +486,6 @@ where
 
     #[inline]
     fn filter(&self, _: Internal) -> Self::Future {
-        route::with(|route| (self.func)(route)).into_future()
+        context::with(|context| (self.func)(context)).into_future()
     }
 }
