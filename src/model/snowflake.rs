@@ -5,7 +5,7 @@ use serde::{
 };
 
 /// The snowflake struct.
-#[derive(Clone, Debug)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub struct Snowflake {
     inner: u64,
 }
