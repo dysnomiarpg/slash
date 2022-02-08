@@ -62,7 +62,6 @@ use std::fmt;
 
 pub(crate) use self::sealed::{CombineRejection, IsReject};
 
-
 /// Rejects a request with a custom cause.
 ///
 /// A [`recover`][] filter should convert this `Rejection` into a `Reply`,
@@ -147,15 +146,15 @@ enum Rejections {
 
 #[derive(Debug)]
 pub(crate) enum Known {
-	DiscordApiError(DiscordApiError),
+    DiscordApiError(DiscordApiError),
 }
 
 impl Known {
-	fn inner_as_any(&self) -> &dyn Any {
-		match *self {
-			Known::DiscordApiError(ref e) => e
-		}
-	}
+    fn inner_as_any(&self) -> &dyn Any {
+        match *self {
+            Known::DiscordApiError(ref e) => e,
+        }
+    }
 }
 
 #[derive(Debug)]
