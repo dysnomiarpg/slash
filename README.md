@@ -6,6 +6,8 @@ Slashlib is a Discord interaction library for Rust.
 
 ## Examples
 
+### Builder syntax
+
 ```rs
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn Error>> {
@@ -18,6 +20,23 @@ async fn main() -> Result<(), Box<dyn Error>> {
 			Ok(())
 		})
 		.build();
+	// create the web client and start listening
+	let client = slashlib::web::Client::new()
+		.add_command(ping)
+		.listen()
+		.await?
+}
+```
+
+### Macro syntax
+
+```rs
+#[command]
+async fn ping(ctx: &Context) {
+	ctx.reply("Pong!").await;
+}
+
+async fn main() -> Result<(), Box<dyn Error>> {
 	// create the web client and start listening
 	let client = slashlib::web::Client::new()
 		.add_command(ping)
