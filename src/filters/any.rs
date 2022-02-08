@@ -1,4 +1,4 @@
-//! A filter that matches any route.
+//! A filter that matches any command.
 use std::convert::Infallible;
 use std::future::Future;
 use std::pin::Pin;
@@ -6,7 +6,7 @@ use std::task::{Context, Poll};
 
 use crate::filter::{Filter, FilterBase, Internal};
 
-/// A filter that matches any route.
+/// A filter that matches any command.
 ///
 /// This can be a useful building block to build new filters from,
 /// since [`Filter`](crate::Filter) is otherwise a sealed trait.

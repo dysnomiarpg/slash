@@ -11,7 +11,9 @@ pub mod model;
 pub use crate::filter::Filter;
 pub use crate::filters::*;
 
-#[cfg(feature = "http")]
-pub(crate) mod http;
+pub mod rest;
+
 #[cfg(feature = "gateway")]
 pub(crate) mod gateway;
+#[cfg(feature = "http")]
+pub(crate) mod http;
